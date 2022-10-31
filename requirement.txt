@@ -1,0 +1,9 @@
+#pip install fastapi "uvicorn[standar]"
+fastapi==0.85.1
+uvicorn==0.19.0
+
+#CREATE EXTENSION IF NOT EXISTS pgcrypto;
+SQLAlchemy==1.4.42
+python-dotenv==0.21.0
+
+fastapi-utils==0.2.1
