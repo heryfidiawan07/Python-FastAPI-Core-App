@@ -1,4 +1,5 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException, Header
+from middleware.auth import Auth
 from user.model import UserModel
 from user.service import UserService
 from user.request import UserCreate, UserUpdate
@@ -6,7 +7,7 @@ from uuid import UUID
 
 router = APIRouter()
 
-@router.get("/user")
+@router.get("/user", dependencies=[Depends(Auth.check)])
 async def index():
     return UserService.all()
 

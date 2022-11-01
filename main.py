@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from auth.module import authRouter
 from user.module import userRouter
 from role.module import roleRouter
 from config.database import Base, engine
@@ -12,5 +13,6 @@ Base.metadata.create_all(engine)
 async def healthy():
     return {"app": "RESTful API Core App"}
 
+app.include_router(authRouter)
 app.include_router(userRouter)
 app.include_router(roleRouter)
