@@ -1,5 +1,6 @@
 from fastapi import Depends
 from sqlalchemy.orm import joinedload
+from sqlalchemy.exc import SQLAlchemyError
 from config.database import db
 from role.model import RoleModel
 from permission.model import RolePermissionModel
@@ -22,7 +23,7 @@ class RoleService():
             db.delete(model)
             db.commit()
             db.close()
-        except Exception as error:
+        except SQLAlchemyError as error:
             raise HTTPException(status_code=500, detail="Internal server error")
     
     def create(request: any):
@@ -49,7 +50,7 @@ class RoleService():
             # 
             db.refresh(role)
             return role
-        except Exception as error:
+        except SQLAlchemyError as error:
             raise HTTPException(status_code=500, detail="Internal server error")
     
     def edit(id: UUID, request: any):
@@ -62,5 +63,5 @@ class RoleService():
             db.commit()
             db.refresh(model)
             return user
-        except Exception as error:
+        except SQLAlchemyError as error:
             raise HTTPException(status_code=500, detail="Internal server error")

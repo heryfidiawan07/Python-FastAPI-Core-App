@@ -1,5 +1,6 @@
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import joinedload
+from sqlalchemy.exc import SQLAlchemyError
 from config.database import db
 from user.model import UserModel
 from helper.bcrypt import Hash
@@ -24,7 +25,7 @@ class UserService():
             db.delete(model)
             db.commit()
             db.close()
-        except Exception as error:
+        except SQLAlchemyError as error:
             raise HTTPException(status_code=500, detail="Internal server error")
     
     def create(request: any):
@@ -40,7 +41,7 @@ class UserService():
             db.commit()
             db.refresh(valid)
             return valid
-        except Exception as error:
+        except SQLAlchemyError as error:
             raise HTTPException(status_code=500, detail="Internal server error")
     
     def edit(id: UUID, request: any):
@@ -56,5 +57,5 @@ class UserService():
             db.commit()
             db.refresh(model)
             return user
-        except Exception as error:
+        except SQLAlchemyError as error:
             raise HTTPException(status_code=500, detail="Internal server error")
