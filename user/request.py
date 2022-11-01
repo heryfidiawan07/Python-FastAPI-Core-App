@@ -1,14 +1,15 @@
 from pydantic import BaseModel
+from uuid import UUID
 
 class UserCreate(BaseModel):
-    name: str | None = None
-    username: str | None = None
-    email: str | None = None
-    password: str | None = None
-    role_id: str | None = None
+    name: str
+    username: str
+    email: str
+    password: str
+    role_id: UUID
 
 class UserUpdate(BaseModel):
-    name: str | None = None
-    username: str | None = None
-    email: str | None = None
-    role_id: str | None = None
+    name: str
+    username: str
+    email: str
+    role_id: UUID

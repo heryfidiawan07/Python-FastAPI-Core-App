@@ -2,6 +2,7 @@ from fastapi import APIRouter
 from user.model import UserModel
 from user.service import UserService
 from user.request import UserCreate, UserUpdate
+from uuid import UUID
 
 router = APIRouter()
 
@@ -10,11 +11,11 @@ async def index():
     return UserService.all()
 
 @router.get("/user/{id}")
-async def show(id: str):
+async def show(id: UUID):
     return UserService.find(id)
 
 @router.delete("/user/{id}")
-async def delete(id: str):
+async def delete(id: UUID):
     UserService.destroy(id)
     return "Data was deleted"
 
@@ -23,5 +24,5 @@ async def store(request: UserCreate):
     return UserService.create(request)
 
 @router.put("/user/{id}")
-async def update(id: str, request: UserUpdate):
+async def update(id: UUID, request: UserUpdate):
     return UserService.edit(id, request)
